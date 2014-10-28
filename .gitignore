@@ -1,0 +1,3 @@
+scripts/*/output/*.xml
+node_modules
+ui/app/bower_components

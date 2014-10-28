@@ -1,0 +1,12 @@
+-mode
+local
+-input_compressed 
+true 
+-input_file_path 
+otc 
+-output_collections 
+otc
+-output_permissions
+rest-reader,read,rest-writer,insert,rest-writer,update,rest-writer,read,rest-admin,insert,rest-admin,update,rest-admin,read
+-archive_metadata_optional 
+true
