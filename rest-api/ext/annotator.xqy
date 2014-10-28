@@ -3,6 +3,7 @@ xquery version "1.0-ml";
 module namespace ext = "http://marklogic.com/rest-api/resource/annotator";
 
 import module namespace ann = "http://marklogic.com/demo/ontology/annotator" at "/lib/custom-annotator.xqy";
+import module namespace normalize = "http://marklogic.com/demo/ontology/normalize" at "/lib/normalize.xqy";
 
 declare namespace roxy = "http://marklogic.com/roxy";
 declare namespace rapi = "http://marklogic.com/rest-api";
@@ -34,5 +35,7 @@ function ext:post(
   let $input-type := map:get($params, "input-type")
   let $mark-up := fn:boolean(map:get($params, "mark-up"))
   return
-    ann:annotate($input, $mark-up, $input-type)
+    document {
+      normalize:normalize(ann:annotate($input, $mark-up, $input-type))
+    }
 };
