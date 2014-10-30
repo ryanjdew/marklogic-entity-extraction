@@ -26,7 +26,8 @@ declare
 function ann:annotate(
     $input   as document-node()*,
     $mark-up as xs:boolean,
-    $input-type as xs:string?
+    $input-type as xs:string?,
+    $exclude as xs:string*
 ) as node()*
 {
   for $i in $input
@@ -44,6 +45,9 @@ function ann:annotate(
   let $reverse-query := cts:reverse-query($in)
   let $annotation-query :=
     cts:and-query((
+      if ($exclude) then
+        cts:not-query(cts:element-attribute-value-query(xs:QName('ont:notation'), xs:QName('type'), $exclude))
+      else (),
       $reverse-query,
       cts:element-query(xs:QName("ont:reverse-query"),cts:and-query(()))
     ))

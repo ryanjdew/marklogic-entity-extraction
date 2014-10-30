@@ -34,8 +34,9 @@ function ext:post(
   xdmp:set-response-code(200, "OK"),
   let $input-type := map:get($params, "input-type")
   let $mark-up := fn:boolean(map:get($params, "mark-up"))
+  let $exclude := "qualifier value"
   return
     document {
-      normalize:normalize(ann:annotate($input, $mark-up, $input-type))
+      normalize:normalize(ann:annotate($input, $mark-up, $input-type, $exclude))
     }
 };

@@ -12,6 +12,7 @@ declare namespace e = "http://marklogic.com/entity";
 declare function normalize:normalize(
   $content as node())
 {
+  let $subject-id as xs:string := sem:uuid-string()
   let $tid as xs:string := mem:copy($content)
   let $entities := node-op:outermost($content//e:entity)
   let $_normalize as empty-sequence() :=
@@ -32,7 +33,7 @@ declare function normalize:normalize(
           let $has-object := fn:exists($e/@object)
           let $subject-id :=
             if ($has-object) then
-              fn:string($e/@id)
+              $subject-id
             else
               normalize:related-id($e)
           where fn:exists($subject-id)
